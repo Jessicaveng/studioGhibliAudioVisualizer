@@ -1,17 +1,16 @@
-import request from 'superagent'
+import request from 'superagent';
 
-const ghibliAPI = 'https://ghibliapi.herokuapp.com/'
+const ghibliApi = 'https://ghibliapi.herokuapp.com/films/';
 
-const authKey = 'BNLGPTNP6BTY'
-
-export function searchByTitle(query) {
-  return request
-    .get(ghibliAPI + query)
-    .then((res) => res.body.results)
-    .then((results) =>
-      results.map((result) => {
-        return result.title
+export const getgGhibliAPI = () => {
+	console.log(res.body);
+	return request
+		.get(ghibliApi) // ghibliApi + user input
+		.then((res) => res.body)
+		.then((results) =>
+			results.map((result) => {
+				console.log(results);
+				return result.id;
       })
-    )
-  // .then((results) => results.slice(0, 10))
-}
+		);
+};

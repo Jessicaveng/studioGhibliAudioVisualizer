@@ -90,26 +90,28 @@
 /*!***********************!*\
   !*** ./client/api.js ***!
   \***********************/
-/*! exports provided: searchByTitle */
+/*! exports provided: getgGhibliAPI */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchByTitle", function() { return searchByTitle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getgGhibliAPI", function() { return getgGhibliAPI; });
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
 
-var ghibliAPI = 'https://ghibliapi.herokuapp.com/';
-var authKey = 'BNLGPTNP6BTY';
-function searchByTitle(query) {
-  return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get(ghibliAPI + query).then(function (res) {
-    return res.body.results;
+var ghibliApi = 'https://ghibliapi.herokuapp.com/films/';
+var getgGhibliAPI = function getgGhibliAPI() {
+  console.log(res.body);
+  return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get(ghibliApi) // ghibliApi + user input
+  .then(function (res) {
+    return res.body;
   }).then(function (results) {
     return results.map(function (result) {
-      return result.title;
+      console.log(results);
+      return result.id;
     });
-  }); // .then((results) => results.slice(0, 10))
-}
+  });
+};
 
 /***/ }),
 
@@ -170,32 +172,16 @@ var App = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "state", {
       movieListToDisplay: null,
-      query: ''
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "handleChange", function (evt) {
-      _this.setState({
-        query: evt.target.value
-      });
+      userInput: ''
     });
 
     _defineProperty(_assertThisInitialized(_this), "submit", function (evt) {
       evt.preventDefault();
-      Object(_api__WEBPACK_IMPORTED_MODULE_1__["searchByTitle"])(_this.state.query).then(function (result_SearchByTitle) {
-        console.log("this is the data from search for gif function", result_SearchByTitle);
-
+      Object(_api__WEBPACK_IMPORTED_MODULE_1__["searchByTitle"])(_this.state.userInput).then(function (result_SearchByTitle) {
         _this.setState({
           movieListToDisplay: result_SearchByTitle
         });
       });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "movieListToDisplay", function () {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, _this.state.movieListToDisplay.map(function (result) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-          src: result
-        });
-      }));
     });
 
     return _this;
@@ -203,20 +189,17 @@ var App = /*#__PURE__*/function (_React$Component) {
 
   _createClass(App, [{
     key: "render",
+    // movieListToDisplay = () => {
+    // 	return (
+    // 		<>
+    // 			{this.state.movieListToDisplay.map((result) => {
+    // 				return <img src={result} />;
+    // 			})}
+    // 		</>
+    // 	);
+    // };
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Is anyone listening?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        onSubmit: this.submit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        htmlFor: "SearchFilm"
-      }, "Which gif are you feeling?"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "search",
-        name: "SearchFilm",
-        onChange: this.handleChange
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "submit",
-        value: "Submit",
-        onClick: this.submit
-      })), this.state.movieListToDisplay && this.movieListToDisplay());
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HELLO WORLD"), this.state.movieListToDisplay && this.movieListToDisplay());
     }
   }]);
 
