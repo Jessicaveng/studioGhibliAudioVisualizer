@@ -13,14 +13,6 @@ class App extends React.Component {
 	// 	});
 	// };
 
-	submit = (evt) => {
-		evt.preventDefault();
-		searchByTitle(this.state.userInput).then((result_SearchByTitle) => {
-			this.setState({
-				movieListToDisplay: result_SearchByTitle,
-			});
-		});
-	};
 
 	// movieListToDisplay = () => {
 	// 	return (
