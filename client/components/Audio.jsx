@@ -1,23 +1,34 @@
+import { render } from "enzyme";
 import React from "react";
+import ReactAudioPlayer from "react-audio-player";
 import Sound from "react-sound";
-import useSound from 'use-sound'
+import useSound from "use-sound";
 
 
-const [play] = useSound('.audios/HowlsMovingCastle_MerryGoRound.mp3');
+const audioTrack = "HowlsMovingCastle_MerryGoRound.mp3"
 
+class Audio extends React.Component{
 
-const hmcSoundTrack = () => {
-  const [play, { sound }] = useSound('./audios/HowlsMovingCastle_MerryGoRound.mp3');
- 
-  return (
-    <button
-      onClick={() => {
-        // You win! Fade in the victory theme
-        sound.fade(0, 1, 1000);
-      }}
-    >
-      Click to win
-    </button>
-  );
-};
+  state ={ 
+    audioFile: false,
+  
+  }
+
+  mouseEnterHandler = ()=>{
+    this.setState({
+      soundFile: true
+    })
+    if (soundFile) {
+      setTimeout(()=> {
+        this.setState({ soundFile: false})
+      },1000)
+    }
+  }
+  render(){
+    return(    <div onMouseEnter={this.mouseEnterHandler} className='square'>
+    <Sound playStatus={ this.state.audioFile ? Sound.status.PLAYING: Sound.status.STOPPED} url={`/soundBites/${randomSounds()}`}/>  
+  </div>)
+  }
+}
+
 export default Audio;
