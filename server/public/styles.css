@@ -6,18 +6,22 @@ body {
 }
 
 .ghibliLogo {
-  width: 30vh;
+  width: 45vh;
 }
 
 ul li {
   list-style: none;
   margin: 5px;
+  font-size: 2vh;
 }
 
 .title {
   font-weight: 500;
+  font-size: large;
+  font-size: 2.5vh;
 }
 
 .director {
   font-weight: 400;
+  font-size: 2vh;
 }
