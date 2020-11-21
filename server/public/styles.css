@@ -1,0 +1,23 @@
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+  color: #092a35;
+  background-color: #f8f9fc;
+}
+
+.ghibliLogo {
+  width: 30vh;
+}
+
+ul li {
+  list-style: none;
+  margin: 5px;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.director {
+  font-weight: 400;
+}

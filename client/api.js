@@ -1,16 +1,18 @@
-import request from 'superagent';
+import request from "superagent";
 
-const ghibliApi = 'https://ghibliapi.herokuapp.com/films/';
+const ghibliApiURL = "https://ghibliapi.herokuapp.com/films/";
 
-export const getgGhibliAPI = () => {
-	console.log(res.body);
-	return request
-		.get(ghibliApi) // ghibliApi + user input
-		.then((res) => res.body)
-		.then((results) =>
-			results.map((result) => {
-				console.log(results);
-				return result.id;
-      })
-		);
-};
+// export const getFilmList = () => {
+//   return request
+//     .get(getFilmList)
+//     .then((res) => {
+//       res.json();
+//     })
+// 		.then((res) => res.body);
+// };
+
+export function getGhibliFilms(){
+  return request
+  .get(ghibliApiURL)
+  .then(res=>res.body)
+}

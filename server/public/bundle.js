@@ -90,28 +90,29 @@
 /*!***********************!*\
   !*** ./client/api.js ***!
   \***********************/
-/*! exports provided: getgGhibliAPI */
+/*! exports provided: getGhibliFilms */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getgGhibliAPI", function() { return getgGhibliAPI; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getGhibliFilms", function() { return getGhibliFilms; });
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_0__);
 
-var ghibliApi = 'https://ghibliapi.herokuapp.com/films/';
-var getgGhibliAPI = function getgGhibliAPI() {
-  console.log(res.body);
-  return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get(ghibliApi) // ghibliApi + user input
-  .then(function (res) {
+var ghibliApiURL = "https://ghibliapi.herokuapp.com/films/"; // export const getFilmList = () => {
+//   return request
+//     .get(getFilmList)
+//     .then((res) => {
+//       res.json();
+//     })
+// 		.then((res) => res.body);
+// };
+
+function getGhibliFilms() {
+  return superagent__WEBPACK_IMPORTED_MODULE_0___default.a.get(ghibliApiURL).then(function (res) {
     return res.body;
-  }).then(function (results) {
-    return results.map(function (result) {
-      console.log(results);
-      return result.id;
-    });
   });
-};
+}
 
 /***/ }),
 
@@ -119,6 +120,32 @@ var getgGhibliAPI = function getgGhibliAPI() {
 /*!***********************************!*\
   !*** ./client/components/App.jsx ***!
   \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _FilmList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FilmList */ "./client/components/FilmList.jsx");
+
+
+
+var App = function App() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    className: "ghibliLogo",
+    src: "./images/studio-ghibli-logo.svg"
+  }), " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FilmList__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./client/components/FilmList.jsx":
+/*!****************************************!*\
+  !*** ./client/components/FilmList.jsx ***!
+  \****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -154,15 +181,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var App = /*#__PURE__*/function (_React$Component) {
-  _inherits(App, _React$Component);
+var FilmList = /*#__PURE__*/function (_React$Component) {
+  _inherits(FilmList, _React$Component);
 
-  var _super = _createSuper(App);
+  var _super = _createSuper(FilmList);
 
-  function App() {
+  function FilmList() {
     var _this;
 
-    _classCallCheck(this, App);
+    _classCallCheck(this, FilmList);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -171,42 +198,42 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this = _super.call.apply(_super, [this].concat(args));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      movieListToDisplay: null,
-      userInput: ''
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "submit", function (evt) {
-      evt.preventDefault();
-      Object(_api__WEBPACK_IMPORTED_MODULE_1__["searchByTitle"])(_this.state.userInput).then(function (result_SearchByTitle) {
-        _this.setState({
-          movieListToDisplay: result_SearchByTitle
-        });
-      });
+      filmList: []
     });
 
     return _this;
   }
 
-  _createClass(App, [{
+  _createClass(FilmList, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      Object(_api__WEBPACK_IMPORTED_MODULE_1__["getGhibliFilms"])().then(function (filmList) {
+        _this2.setState({
+          filmList: filmList
+        });
+      });
+    }
+  }, {
     key: "render",
-    // movieListToDisplay = () => {
-    // 	return (
-    // 		<>
-    // 			{this.state.movieListToDisplay.map((result) => {
-    // 				return <img src={result} />;
-    // 			})}
-    // 		</>
-    // 	);
-    // };
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "HELLO WORLD"), this.state.movieListToDisplay && this.movieListToDisplay());
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.state.filmList.map(function (film) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: film.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          className: "title"
+        }, film.title), " directed by", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("em", {
+          className: "director"
+        }, " ", film.director));
+      })));
     }
   }]);
 
-  return App;
+  return FilmList;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (App);
+/* harmony default export */ __webpack_exports__["default"] = (FilmList);
 
 /***/ }),
 
